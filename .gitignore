@@ -1,0 +1,9 @@
+vendor/*
+composer.phar
+
+app/config.php
+app/ressources
+.idea
+
+logs/
+ressources/css/lib
