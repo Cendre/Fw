@@ -1,0 +1,36 @@
+#submissionContainer {
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width:80%;
+    height:50px;
+    border:1px ridge #3c763d;
+    padding:0;
+    margin:0;
+    opacity:0.5;
+}
+
+#submissionDiv {
+    width:100%;
+    height:100%;
+    font-size:32px;
+    text-align:center;
+    padding:0;
+    margin:0;
+    border: 0 solid #3c763d;
+    opacity:0.5;
+    text-height: max-size;
+}
+
+#submissionDiv:focus, #submissionDiv:active {
+    border : none;
+    outline: none;
+}
+
+
+
+/**
+Though my soul may set in darkness, it will rise in perfect light;
+I have loved the stars too fondly to be fearful of the night
+*/
