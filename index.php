@@ -16,27 +16,12 @@ if(array_key_exists('a', $_GET) && $_GET['a']) {
     $action = $_GET['a'];
 }
 
-
-/*
-$pdo = null;
 try {
-    if(defined(DB_HOST)) {
-        $pdo = new PDO(DB_HOST, DB_USER, DB_PASS);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-
-} catch (Exception $e) {
-    echo "<pre>Connection impossible ".$e->getMessage()."</pre>";
-}
-*/
-
-try {
-    $logger = new \Framework\Logger(__DIR__."/logs/logs.txt");
+    $logger = new \Framework\Logger(__DIR__."/logs/logs.txt", \Framework\Logger::LOG_LEVEL_DEBUG);
     $router = new \Framework\Router($logger);
-    echo  $router->renderAction($controllerName, $action);
-
+    echo $router->renderAction($controllerName, $action);
 } catch (Exception $e) {
-    $logger->debug($e->getMessage());
+    $logger->alert($e->getMessage());
     echo "<pre>".$e->getMessage()."</pre>";
     echo "<pre>".$e->getTraceAsString()."</pre>";
 }
