@@ -9,7 +9,7 @@
 namespace Framework;
 
 
-use Controller\MainController;
+use Controller\AbstractController;
 
 class Router {
     /**
@@ -31,7 +31,7 @@ class Router {
 
     /**
      * @param String $controllerName
-     * @return MainController
+     * @return AbstractController
      * @throws \Exception
      */
     private function getController($controllerName)
@@ -45,7 +45,7 @@ class Router {
 
         $controllerClassName = "Controller\\".$controllerName."Controller";
 
-        /** @var MainController $controller */
+        /** @var AbstractController $controller */
         $twig = $this->getTwig();
         $controller = new $controllerClassName($twig, $this->logger);
 

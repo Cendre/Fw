@@ -8,8 +8,9 @@
 
 namespace Framework\Bash;
 
+abstract class AbstractCommandManager {
+    const BASH_STRING = "Bash > ";
 
-abstract class CommandManager {
     public function quit()
     {
         exit("Goodbye");
@@ -43,5 +44,14 @@ abstract class CommandManager {
         }
 
         return implode("\n", $desc);
+    }
+
+    public function getPromptString() {
+        return static::BASH_STRING;
+    }
+
+    public function initialize()
+    {
+
     }
 }

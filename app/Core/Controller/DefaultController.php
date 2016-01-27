@@ -3,7 +3,7 @@ namespace Controller;
 
 
 
-class DefaultController extends MainController {
+class DefaultController extends AbstractController {
 
     public function defaultAction() {
         return $this->twig->render('index.twig.html');

@@ -5,6 +5,6 @@ require_once "./app/autoloader.php";
 
 
 $logger = new \Framework\Logger('logs/console', \Framework\Logger::LOG_LEVEL_DEBUG);
-$bash = new \Framework\Bash\BashController($logger);
+$bash = new \Framework\Bash\Prompt($logger);
 
 $bash->init();
