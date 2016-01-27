@@ -9,17 +9,18 @@ class BashController
     /** @var Logger $logger */
     private $logger;
 
-    /** @var string  */
-    private $bashTag = ".: Cendre :. > ";
-
     /** @var resource $in */
     private $in;
 
+    /**
+     * @var \StdClass
+     */
+    private $parameters;
     public function __construct(Logger $logger)
     {
         $this->logger = $logger;
-        $this->commandManager = new OdeBash();
-
+        $this->commandManager = new CendreCommandManager();
+        $this->parameters = $this->getconfig();
         $this->in = fopen('php://stdin', 'r');
     }
 
@@ -30,38 +31,72 @@ class BashController
 
     private function prompt()
     {
-        echo ($this->getBash());
+        echo ($this->commandManager->getPromptString());
 
         $get = fgets($this->in);
         $get = str_replace("\n","",$get);
         $get = str_replace("\r","",$get);
+        $params = explode(" ", $get);
+
         try {
-            echo $this->getCommand($get);
+            $this->out($this->getCommand($params[0], $params));
         } catch (CommandNotFoundException $e) {
             $this->out('Commande '.$get.' inconnue');
         } catch (\Exception $e) {
             $this->out($e->getMessage());
+            $this->logger->warning($e->getMessage());
         }
 
         $this->prompt();
     }
 
-    private function getBash()
+    private function getCommand($get, Array $params = [])
     {
-        return $this->bashTag;
-    }
+        if("setmanager" === $get) {
+            return $this->setManager($params[1]);
+        }
 
-    private function getCommand($get)
-    {
+        if("listmanager" ===$get) {
+            return $this->listManager();
+        }
+
         if(!method_exists($this->commandManager, $get)) {
             throw new CommandNotFoundException();
         }
 
-        return $this->commandManager->$get()."\n";
+        return $this->commandManager->$get();
     }
 
     private function out($string)
     {
         echo $string."\n";
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function setManager($managerName) {
+        if(!$this->parameters->commands->$managerName) {
+            throw new \Exception("Unknown manager ".$managerName);
+        }
+        $class = $this->parameters->commands->$managerName;
+        $this->commandManager = new $class();
+    }
+
+    private function listManager() {
+        $names = [];
+        foreach($this->parameters->commands as $name => $command) {
+            $names[] = $name;
+        }
+
+        return implode("\n\r", $names);
+    }
+
+    private function getconfig() {
+        $rawConfig = file_get_contents(CORE_DIR."../parameters.json");
+        $config = json_decode($rawConfig);
+
+        return $config;
     }
 }

@@ -1,7 +1,9 @@
 <?php
 namespace Framework\Bash;
 
-class OdeBash extends CommandManager {
+class CendreCommandManager extends AbstractCommandManager {
+
+    const BASH_STRING = ".: Cendre :.  > ";
 
     /**
      * @desc
@@ -12,4 +14,8 @@ class OdeBash extends CommandManager {
         return "OUI J'SUIS UNE GROSSE PUTE";
     }
 
+    public function verifyFolders()
+    {
+
+    }
 }
