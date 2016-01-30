@@ -4,7 +4,7 @@ use Framework\Logger;
 use \PDO;
 use Twig_Environment;
 
-class MainController {
+abstract class AbstractController {
     /**
      * @var Twig_Environment $twig
      */

@@ -13,7 +13,9 @@ use Framework\Bash\AbstractCommandManager;
 class TestCommandManager extends AbstractCommandManager {
     const BASH_STRING = "Test >>>> ";
 
-    public function lol() {
-        return "lol";
+    public function lol($args = []) {
+        return print_r($args,true);
     }
+
+
 }
