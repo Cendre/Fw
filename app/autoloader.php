@@ -1,5 +1,6 @@
 <?php
 define("CORE_DIR", __DIR__."/Core/");
+define("BASE_DIR", __DIR__."/../");
 
 function FwAutoload($classname)
 {
