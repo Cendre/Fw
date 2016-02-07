@@ -2,6 +2,12 @@
   "commands":
     {
       "test":"TestProject\\TestCommandManager"
-    }
-
+    },
+  "folders":
+  [
+    "ressources",
+    "ressources/Views",
+    "logs",
+    "toto"
+  ]
 }

@@ -24,26 +24,30 @@ abstract class AbstractCommandManager {
     public function help() {
 
         $methods = get_class_methods($this);
-        $desc = [];
+        $desc = ["List of all avaible commands :"];
 
         foreach ($methods as $method) {
 
-            if (strpos($method, "Help") || strpos($method, "help")) {
+            if (strpos($method, "Help") || strpos($method, "help") || in_array($method,$this->getInvisibleCommands())) {
                 continue;
             }
 
 
-            $description = "* ".$method;
+            $description = " - ".$method;
 
             if(method_exists($this, $method . "Help")) {
                 $methodName = $method."Help";
-                $description .= " : ".$this->$methodName();
+                $description .= " : \n\t".$this->$methodName();
             }
 
             $desc[] = $description;
         }
+        return implode("\n\n", $desc);
+    }
 
-        return implode("\n", $desc);
+    public function helpHelp()
+    {
+        return "Display this help :)";
     }
 
     public function getPromptString() {
@@ -53,5 +57,14 @@ abstract class AbstractCommandManager {
     public function initialize()
     {
 
+    }
+
+    private function getInvisibleCommands()
+    {
+        return [
+            "initialize",
+            "getPromptString",
+            "getInvisibleCommands"
+        ];
     }
 }

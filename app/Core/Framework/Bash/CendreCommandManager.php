@@ -1,6 +1,8 @@
 <?php
 namespace Framework\Bash;
 
+use Framework\FolderInspector;
+
 class CendreCommandManager extends AbstractCommandManager {
 
     const BASH_STRING = ".: Cendre :.  > ";
@@ -16,6 +18,13 @@ class CendreCommandManager extends AbstractCommandManager {
 
     public function verifyFolders()
     {
+        $folderInspector = new FolderInspector();
 
+        var_dump($folderInspector->verify());
+    }
+
+    public function verifyFoldersHelp()
+    {
+        return "Check if all the folder are okay for the framework to run";
     }
 }
