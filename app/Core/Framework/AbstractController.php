@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace Framework;
 use Framework\Logger;
 use \PDO;
 use Twig_Environment;

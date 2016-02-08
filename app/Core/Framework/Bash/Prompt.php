@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Bash;
 
+use Framework\ConfigurationManager;
 use Framework\Logger;
 
 class Prompt
@@ -16,11 +17,15 @@ class Prompt
      */
     private $parameters;
 
+    /**
+     * @param Logger $logger
+     * @throws \Exception
+     */
     public function __construct(Logger $logger)
     {
         $this->logger = $logger;
         $this->commandManager = new CendreCommandManager();
-        $this->parameters = $this->getconfig();
+        $this->parameters = ConfigurationManager::getConfig();
         $this->in = fopen('php://stdin', 'r');
     }
 

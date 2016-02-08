@@ -16,6 +16,6 @@ class CendreCommandManager extends AbstractCommandManager {
 
     public function verifyFolders()
     {
-        
+
     }
 }
