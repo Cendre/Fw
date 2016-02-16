@@ -16,11 +16,33 @@ class CendreCommandManager extends AbstractCommandManager {
         return "OUI J'SUIS UNE GROSSE PUTE";
     }
 
+    /**
+     * @return string
+     */
     public function verifyFolders()
     {
         $folderInspector = new FolderInspector();
 
-        var_dump($folderInspector->verify());
+        $folders = $folderInspector->verify();
+
+        $return = "";
+        $fail = false;
+        foreach ($folders as $folderName => $exists) {
+            $return .= $folderName." : ";
+            if ($exists) {
+                $return .= "OK";
+            } else {
+                $fail = true;
+                $return .= "Do not exists";
+            }
+            $return .= "\n";
+        }
+
+        if ($fail) {
+            $return .= "Some folder does not exists. To create them, use 'createFolders'";
+        }
+        
+        return $return;
     }
 
     public function verifyFoldersHelp()
